@@ -1,8 +1,9 @@
 // Import the JSON data with the 'type' attribute
 import data from './data.json';
 
-// Create an array of all categories
+// // Create an array of all categories
 const allCategories = data.map(obj => obj.category)
+
 
 // Make an object where each key is a category name
 const categoryObjects = allCategories.reduce((obj, cat) => {

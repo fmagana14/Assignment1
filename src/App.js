@@ -1,56 +1,33 @@
 // import logo from './logo.svg';
 import './App.css';
 import React from 'react';
-import data, {categoriesUnique, categoriesWithCounts, namesAndCategories} from './data';
+import data, { namesAndCategories, categoriesUnique } from './data';
 function App() {
   console.log(namesAndCategories);
 
+
   return (
     <div className="App">
-      {/* <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p> */}
-     <h1>Product List</h1>
-      <ul>
-        {data.map(product => (
-          <li key={product.id}>
-            <h2>{product.name}</h2>
-            <p>{product.description}</p>
-            <p>Category: {product.category}</p>
-            <p>Price: ${product.price}</p>
-            <p>Rating: {product.rating}</p>
-            <p>Units: {product.units}</p>
-          </li>
-        ))}
-      </ul>
+      <h1>Product List</h1>
 
-      {/* <h2>All Categories</h2>
-      <ul>
-        {allCategories.map((category, index) => (
-          <li key={index}>{category}</li>
-        ))}
-      </ul> */}
-
+      {/* Challenge 8 - Display Categories as Buttons */}
       <h2>Unique Categories</h2>
-      <ul>
+      <div>
         {categoriesUnique.map((category, index) => (
-          <li key={index}>{category}</li>
+          <button key={index} className="category-button">
+            {category}
+          </button>
         ))}
-      </ul>
+      </div>
 
-      <h2>Category Counts</h2>
-      <ul>
-        {Object.entries(categoriesWithCounts).map(([category, count]) => (
-          <li key={category}>{category}: {count}</li>
-        ))}
-      </ul>
-
-{/* challenge 5 */}
-      <h2>Categories with Counts</h2>
-      <ul>
-        {namesAndCategories.map((item, index) => (
-          <li key={index}>
-            {item.name}: {item.count}
+      {/* Challenge 9 - Display Products */}
+      <h2>Product List</h2>
+      <ul className="product-list">
+        {data.map(product => (
+          <li key={product.id} className="product-item">
+            <h3 className="product-name">{product.name}</h3>
+            <p className="product-price">{product.price}</p>
+            <p className="product-category">{product.category}</p>
           </li>
         ))}
       </ul>
@@ -62,3 +39,5 @@ function App() {
 }
 
 export default App;
+
+
