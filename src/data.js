@@ -15,30 +15,20 @@ const categoryObjects = allCategories.reduce((obj, cat) => {
 const categoriesUnique = Object.keys(categoryObjects)
 
 // Make a histogram of category counts
-const categoriesWithCounts = data.reduce((obj, item) => {
-  const category = item.category;
-  if (obj[category]) {
-    obj[category] += 1; // Increment count if the category already exists
-  } else {
-    obj[category] = 1; // Initialize count if the category is new
-  }
-  return obj;
-}, {}); // Initialize as an empty object
+// Function to filter products by selected categories
+const filterProductsByCategory = (selectedCategories) => {
+  return data.filter(item => selectedCategories.includes(item.category));
+};
 
-const namesAndCategories = categoriesUnique.map(name => {
-  // return an object here with the name and count
-  return {
-    name: name,
-    count: categoriesWithCounts[name]
-  }
-
-})
-
-// Function to filter products by category
-const filterProductsByCategory = (category) => {
-  return data.filter(item => category === 'All' || item.category === category);
+// Function to calculate total prices of products
+const sumPrices = (products) => {
+  return products.reduce((sum, item) => {
+    const price = parseFloat(item.price.slice(1)); // Remove $ and parse price
+    return sum + price;
+  }, 0);
 };
 
 
+
 // Export the data so it can be used in other files
-export { data as default, filterProductsByCategory, allCategories, categoriesUnique, categoriesWithCounts, namesAndCategories };
+export { data as default, categoriesUnique, filterProductsByCategory, sumPrices };

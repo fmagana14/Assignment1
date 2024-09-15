@@ -1,57 +1,97 @@
 // import logo from './logo.svg';
-import './App.css';
-import React, { useState } from 'react';
-import data, { categoriesUnique } from './data';
+import "./App.css";
+import React, { useState } from "react";
+import data, {
+  categoriesUnique,
+  filterProductsByCategory,
+  sumPrices,
+} from "./data";
 
 function App() {
-  const [selectedCategory, setSelectedCategory] = useState('All'); // State for selected category
+  const [selectedCategories, setSelectedCategories] = useState([]); // Multiple categories
 
-  // Handle category button click
+  // Toggle category selection
   const handleCategoryClick = (category) => {
-    setSelectedCategory(category);
+    if (category === "All") {
+      if (selectedCategories.length === categoriesUnique.length) {
+        setSelectedCategories([]);
+      } else {
+        setSelectedCategories(categoriesUnique); // Reset to all categories
+      }
+    } else if (selectedCategories.includes(category)) {
+      // Deselect the category
+      setSelectedCategories(
+        selectedCategories.filter((cat) => cat !== category)
+      );
+    } else {
+      // Select a new category
+      setSelectedCategories([category]);
+    }
   };
 
-  // Filter products based on selected category
-  const filteredProducts = data.filter((item) => {
-    return selectedCategory === 'All' || item.category === selectedCategory;
-  });
+  const filteredProducts = filterProductsByCategory(selectedCategories);
+  // Calculate total price for selected products
+  const totalPrice = sumPrices(filteredProducts);
+
+  // Calculate total number of products in each category
+  const categoryProductCounts = data.reduce((counts, product) => {
+    counts[product.category] = (counts[product.category] || 0) + 1;
+    return counts;
+  }, {});
 
   return (
     <div className="App">
       <h1>Product List</h1>
 
-      {/* Challenge 8 - Display Categories as Buttons */}
+      {/* Display Categories as Buttons */}
       <h2>Unique Categories</h2>
       <div className="CategoryList">
+        {/* Button to display all products */}
         <button
-        //  className={selectedCategory === 'All' ? 'category-button selected' : 'category-button'}
-          className="category-button"
-          onClick={() => handleCategoryClick('All')}
+          className={
+            selectedCategories.length === 0
+              ? "category-button selected"
+              : "category-button"
+          }
+          onClick={() => handleCategoryClick("All")}
         >
           All
         </button>
         {categoriesUnique.map((category, index) => (
           <button
             key={index}
-            // x className={selectedCategory === category ? 'category-button selected' : 'category-button'}
-            className="category-button"
+            className={
+              selectedCategories.includes(category)
+                ? "category-button selected"
+                : "category-button"
+            }
             onClick={() => handleCategoryClick(category)}
           >
-            {category}
+            {category}{" "}
+            <span className="badge">
+              {categoryProductCounts[category] || 0}
+            </span>
           </button>
         ))}
       </div>
 
-      {/* display selected category */}
-      <h2> Selected Category: {selectedCategory} </h2>
+      {/* Display total price */}
+      <h2>Total Price for Selected Products: ${totalPrice.toFixed(2)}</h2>
 
-      {/* Challenge 9 - Display Products */}
+      {/* Display Products */}
       <ul className="product-list">
         {filteredProducts.map((product) => (
-          <li key={product.id} className="product-item">
+          <li
+            key={product.id}
+            className={`product-item ${product.units === 0 ? "disabled" : ""}`}
+          >
             <h3 className="product-name">{product.name}</h3>
             <p className="product-price">{product.price}</p>
-            <p className="product-category">{product.category}</p>
+            <p className="product-category">Category: {product.category}</p>
+            <p className="product-units">Units: {product.units}</p>
+            <p className="product-rating">
+              Rating: {"★".repeat(Math.round(product.rating))}
+            </p>
           </li>
         ))}
       </ul>

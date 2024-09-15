@@ -1,7 +1,10 @@
- body{
+/* ask mitchell about the challenge that lets us know what function
+ should have its own file?  */
+
+body {
   color: white;
- }
- .App {
+}
+.App {
   text-align: center;
   background-color: #282c34;
 }
@@ -41,8 +44,6 @@
   }
 }
 
-
-
 .product-item {
   background-color: #282c34;
   padding: 15px;
@@ -64,17 +65,17 @@
 .product-category,
 .product-price {
   font-size: 0.9rem;
-  color: #888;
+  color: #666699;
 }
 
 .product-list {
-  display: grid; 
-  grid-template-columns: repeat(4, 1fr); 
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   /* 4 columns of equal width */
   grid-gap: 20px;
   list-style: none;
+  background-color: #282c34;
 }
-
 
 .product-item {
   border: 1px solid white;
@@ -82,7 +83,7 @@
   padding: 10px;
   background-color: #282c34;
   transition: transform 0.3s;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   /* Optional: Adds a shadow for better visibility */
 }
 
@@ -107,18 +108,17 @@
 
 @media (max-width: 800px) {
   .product-list {
-    grid-template-columns: repeat(2, 1fr); 
+    grid-template-columns: repeat(2, 1fr);
     /* 2 columns for small screens */
   }
 }
 
 @media (max-width: 500px) {
   .product-list {
-    grid-template-columns: 1fr; 
+    grid-template-columns: 1fr;
     /* 1 column for extra small screens */
   }
-} 
-
+}
 
 .CategoryList {
   display: flex;
@@ -128,7 +128,7 @@
 }
 
 .category-button {
-  background-color: #007bff;
+  background-color: #282c34;
   border: 1px solid #ccc;
   color: white;
   padding: 10px;
@@ -140,11 +140,28 @@
 }
 
 .category-button:hover {
-  background-color: #0056b3;
-}  
+  background-color: #2b527b;
+}
 
 .selected {
-  background-color: #007bff;
+  padding: 10px;
   color: white;
   font-weight: bold;
+}
+/* Style for the badges */
+.badge {
+  background-color: #666699;
+  color: white;
+  padding: 2px 5px;
+  border-radius: 10px;
+}
+
+/* Disabled product styling */
+.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.product-rating {
+  color: #666699; /* Color for stars */
 }
