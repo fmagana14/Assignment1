@@ -10,7 +10,8 @@ const categoryObjects = allCategories.reduce((obj, cat) => {
   obj[cat] = 0
   return obj
 }, {}) // !!! Be sure to define the initial value as an Object!
-// Make an arr array of the keys
+
+// Make an array of the keys
 const categoriesUnique = Object.keys(categoryObjects)
 
 // Make a histogram of category counts
@@ -33,5 +34,11 @@ const namesAndCategories = categoriesUnique.map(name => {
 
 })
 
+// Function to filter products by category
+const filterProductsByCategory = (category) => {
+  return data.filter(item => category === 'All' || item.category === category);
+};
+
+
 // Export the data so it can be used in other files
-export { data as default, allCategories, categoriesUnique, categoriesWithCounts, namesAndCategories };
+export { data as default, filterProductsByCategory, allCategories, categoriesUnique, categoriesWithCounts, namesAndCategories };
